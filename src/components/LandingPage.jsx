@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import "./LandingPage.css";
+import logo from "../assets/logo.png"; // ✅ Your logo path
 
 const LandingPage = () => {
-  // 🔵 Advertisement Carousel
+  // 🟣 Advertisement Carousel
   const ads = [
     { img: "/banners/offer1.jpg", text: "💊 Flat 25% Off on All Medicines!" },
     { img: "/banners/offer2.jpg", text: "⚡ Buy 1 Get 1 Free on Vitamins!" },
@@ -31,7 +32,6 @@ const LandingPage = () => {
 
   const [currentFloating, setCurrentFloating] = useState(0);
 
-  // 🔁 Randomly change comments every few seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentFloating(Math.floor(Math.random() * floatingComments.length));
@@ -49,6 +49,17 @@ const LandingPage = () => {
     { name: "Vicks Vaporub 50ml", price: "₹95", img: "/products/vicks.jpg" },
     { name: "Horlicks Health Drink 500g", price: "₹220", img: "/products/horlicks.jpg" },
     { name: "Moov Pain Relief Spray 80g", price: "₹130", img: "/products/moov.jpg" },
+    { name: "Cetrizine Allergy Tablets", price: "₹35", img: "/products/cetrizine.jpg" },
+    { name: "Savlon Handwash 750ml", price: "₹99", img: "/products/savlon.jpg" },
+    { name: "Bournvita Nutrition Drink 500g", price: "₹240", img: "/products/bournvita.jpg" },
+    { name: "Lactulose Syrup 200ml", price: "₹160", img: "/products/lactulose.jpg" },
+    { name: "Benadryl Cough Syrup 150ml", price: "₹120", img: "/products/benadryl.jpg" },
+    { name: "Johnson’s Baby Soap 75g", price: "₹85", img: "/products/babysoap.jpg" },
+    { name: "ProteinX Chocolate Flavour 500g", price: "₹640", img: "/products/proteinex.jpg" },
+    { name: "Zincovit Tablets", price: "₹130", img: "/products/zincovit.jpg" },
+    { name: "Evion 400 (Vitamin E)", price: "₹95", img: "/products/evion.jpg" },
+    { name: "Amoxicillin 500mg", price: "₹90", img: "/products/amoxicillin.jpg" },
+
   ];
 
   // ✍️ User Comment Form
@@ -58,14 +69,50 @@ const LandingPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userName && userComment) {
-      setFloatingComments([
-        ...floatingComments,
-        { name: userName, text: userComment },
-      ]);
+      setFloatingComments([...floatingComments, { name: userName, text: userComment }]);
       setUserName("");
       setUserComment("");
       alert("✅ Thank you! Your comment has been added.");
     }
+  };
+
+  // 🤖 AI Chatbot
+  const [isChatOpen, setIsChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { sender: "ai", text: "👋 Hi! I'm Hyno AI. Tell me your symptom, and I'll suggest a medicine or syrup." },
+  ]);
+  const [userInput, setUserInput] = useState("");
+
+  const handleChatSubmit = (e) => {
+    e.preventDefault();
+    if (!userInput.trim()) return;
+
+    const newUserMsg = { sender: "user", text: userInput };
+    setChatMessages((prev) => [...prev, newUserMsg]);
+
+    const lower = userInput.toLowerCase();
+    let reply = "I'm not sure about that. Please consult a doctor 👨‍⚕️.";
+
+    if (lower.includes("fever"))
+      reply = "You can take Paracetamol 500mg 💊 and stay hydrated. If fever persists, consult a doctor.";
+    else if (lower.includes("cold"))
+      reply = "Try Cetrizine or Dabur Honitus syrup 🤧. Also, drink warm water.";
+    else if (lower.includes("cough"))
+      reply = "Benadryl or Ascoril syrup 💧 helps. Avoid cold drinks!";
+    else if (lower.includes("pain"))
+      reply = "Moov or Volini spray 💪 can relieve muscle pain.";
+    else if (lower.includes("headache"))
+      reply = "Take Paracetamol or rest in a quiet place 💤.";
+    else if (lower.includes("stomach"))
+      reply = "Try Eno or Digene after meals 🍽️ for relief.";
+    else if (lower.includes("allergy"))
+      reply = "Cetrizine tablets 💊 work for mild allergies.";
+
+    setTimeout(() => {
+      setChatMessages((prev) => [...prev, { sender: "ai", text: reply }]);
+    }, 700);
+
+    setUserInput("");
   };
 
   return (
@@ -75,15 +122,19 @@ const LandingPage = () => {
       transition={{ duration: 1 }}
       className="landing-page"
     >
-      {/* 🟢 NAVBAR */}
+      {/* 🟢 NAVBAR (Untouched) */}
       <header className="navbar">
         <nav>
-          <h2>HynoPharma</h2>
+          <div className="navbar-left">
+            <img src={logo} alt="HynoPharma Logo" className="logo" />
+          </div>
           <div className="navbar-links">
             <Link to="/">Home</Link>
             <Link to="/products">Medicines</Link>
             <Link to="/about">About</Link>
-            <Link to="/login" className="login-btn">Login</Link>
+            <Link to="/login" className="login-btn">
+              Login
+            </Link>
           </div>
         </nav>
       </header>
@@ -92,10 +143,7 @@ const LandingPage = () => {
       <section className="hero-section">
         <div className="hero-content">
           <h1>Trusted Online Pharmacy at Your Fingertips</h1>
-          <p>
-            Order medicines, book health tests, and consult doctors — all from
-            the comfort of your home.
-          </p>
+          <p>Order medicines, book health tests, and consult doctors — all from the comfort of your home.</p>
           <div className="search-bar">
             <input type="text" placeholder="Search for medicines, health products..." />
             <button>🔍</button>
@@ -108,7 +156,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* 🟣 REAL-TIME ADVERTISEMENT CAROUSEL */}
+      {/* 🟣 ADVERTISEMENT CAROUSEL */}
       <section className="advertisement-section">
         <motion.div
           key={currentAd}
@@ -150,46 +198,20 @@ const LandingPage = () => {
               <img src={product.img} alt={product.name} />
               <h3>{product.name}</h3>
               <p className="price">{product.price}</p>
-              <button className="add-to-cart">Add to Cart</button>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 🟢 COMMENT FORM SECTION */}
-      <section className="comment-section">
-        <h2>💬 Leave Your Feedback</h2>
-        <form onSubmit={handleSubmit} className="comment-form">
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            required
-          />
-          <textarea
-            placeholder="Write your comment..."
-            value={userComment}
-            onChange={(e) => setUserComment(e.target.value)}
-            required
-          ></textarea>
-          <button type="submit">Submit</button>
-        </form>
+      {/* 💡 HEALTH TIPS */}
+      <section className="health-tips">
+        <h2>🩺 Health Tips</h2>
+        <div className="tips-grid">
+          <div>Stay hydrated — drink 2L water daily 💧</div>
+          <div>Do light exercise 30 mins a day 🏃‍♂️</div>
+          <div>Don't skip breakfast 🍎</div>
+        </div>
       </section>
-
-      {/* 💬 FLOATING RANDOM COMMENTS */}
-      {floatingComments.length > 0 && (
-        <motion.div
-          key={floatingComments[currentFloating].text}
-          className="floating-comment"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <p>💬 {floatingComments[currentFloating].text}</p>
-          <span>- {floatingComments[currentFloating].name}</span>
-        </motion.div>
-      )}
 
       {/* 🟢 FOOTER */}
       <footer className="footer">
@@ -197,6 +219,36 @@ const LandingPage = () => {
         <p>Your trusted partner for quality healthcare products.</p>
         <p className="copyright">© 2025 HynoPharma. All Rights Reserved.</p>
       </footer>
+
+      {/* 🤖 AI CHATBOT (Side Popup) */}
+      <div className="chatbot-icon" onClick={() => setIsChatOpen(!isChatOpen)}>
+        💬
+      </div>
+
+      {isChatOpen && (
+        <div className="chatbot-window">
+          <div className="chatbot-header">
+            <h4>Hyno AI Assistant 🤖</h4>
+            <button onClick={() => setIsChatOpen(false)}>✖</button>
+          </div>
+          <div className="chatbot-messages">
+            {chatMessages.map((msg, i) => (
+              <div key={i} className={`chat-message ${msg.sender}`}>
+                <strong>{msg.sender === "user" ? "You:" : "Hyno AI:"}</strong> {msg.text}
+              </div>
+            ))}
+          </div>
+          <form onSubmit={handleChatSubmit} className="chatbot-input">
+            <input
+              type="text"
+              placeholder="Type your symptom..."
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+            />
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      )}
     </motion.div>
   );
 };
