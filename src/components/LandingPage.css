@@ -1,0 +1,487 @@
+/* Landing Page Styles */
+
+.landing-page {
+  font-family: "Poppins, sans-serif";
+  overflow-x: hidden;
+  color: #2d3436;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+}
+
+.navbar nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+}
+
+.navbar h2 {
+  color: #00b894;
+  font-weight: 600;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #2d3436;
+}
+
+.navbar-links .login-btn {
+  background: #00b894;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+/* Hero Section */
+.hero-section {
+  margin-top: 80px;
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  position: relative;
+  background: linear-gradient(135deg, #00b894, #0984e3); /* Assuming a background, adjust if needed */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 700px;
+  padding: 0 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 500px;
+  margin: 0 auto 25px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 14px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  background: #00b894;
+  color: white;
+  border: none;
+  padding: 0 20px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.shop-now-btn {
+  background: #00b894;
+  color: #fff;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+/* Services Section */
+.services-section {
+  background: #fff;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.services-section h2 {
+  font-size: 2rem;
+  margin-bottom: 50px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-card {
+  padding: 30px 20px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #f8f9fa;
+}
+
+.service-card .icon {
+  font-size: 2.5rem;
+}
+
+.service-card h3 {
+  color: #00b894;
+  margin: 15px 0 10px;
+}
+
+/* Categories Section */
+.categories-section {
+  background: #f7fdfc;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.categories-section h2 {
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.category-card {
+  padding: 25px;
+  font-weight: 500;
+  color: #2d3436;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #fff;
+}
+
+/* Trust Section */
+.trust-section {
+  background: #fff;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.trust-section h2 {
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.trust-section p {
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* App Section */
+.app-section {
+  background: #00b894;
+  color: white;
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.app-section h2 {
+  margin-bottom: 20px;
+}
+
+.app-section p {
+  margin-bottom: 25px;
+}
+
+.app-badges {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.app-badges img {
+  width: 150px;
+}
+
+/* Footer */
+.footer {
+  background: #2d3436;
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer h3 {
+  margin-bottom: 10px;
+}
+
+.footer p {
+  margin-bottom: 10px;
+}
+
+.footer .copyright {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  .search-bar {
+    max-width: 90%;
+  }
+
+  .services-grid,
+  .categories-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .navbar-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .app-badges {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+/* Advertisement */
+.advertisement-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+.advertisement-card {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+.advertisement-card img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.advertisement-card p {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+}
+
+/* Offers */
+.offers-section {
+  text-align: center;
+  margin: 3rem 0;
+}
+.offers-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.offer-card {
+  background: linear-gradient(135deg, #f9f9ff, #e1e4ff);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 250px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Recommended Products */
+.recommended-section {
+  text-align: center;
+  margin: 3rem 0;
+}
+.recommended-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  padding: 0 2rem;
+}
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+.product-card img {
+  width: 100%;
+  border-radius: 8px;
+  height: 160px;
+  object-fit: cover;
+}
+.price {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+.add-to-cart {
+  background: #5a67d8;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.add-to-cart:hover {
+  background: #4349b1;
+}
+/* 💬 User Comments Section */
+.comments-section {
+  text-align: center;
+  padding: 3rem 1rem;
+  background: #f8fafc;
+}
+
+.comments-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+
+.comments-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.comment-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+.comment-card h3 {
+  color: #0f172a;
+  margin-bottom: 0.6rem;
+}
+
+.comment-text {
+  font-style: italic;
+  color: #334155;
+  margin-bottom: 0.5rem;
+}
+
+.rating {
+  color: #f59e0b;
+  font-weight: 600;
+}
+/* ✍️ Add Comment Form */
+.comment-form {
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+.comment-form h3 {
+  color: #0f172a;
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+}
+
+.comment-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.comment-form input,
+.comment-form textarea,
+.comment-form select {
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-size: 1rem;
+  outline: none;
+}
+
+.comment-form textarea {
+  resize: none;
+  height: 100px;
+}
+
+.comment-form button {
+  background-color: #2563eb;
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.comment-form button:hover {
+  background-color: #1d4ed8;
+}
+/* 💬 Floating Pop-up Comments */
+.floating-comment {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  max-width: 280px;
+  z-index: 999;
+  font-size: 0.95rem;
+  color: #1e293b;
+  text-align: left;
+  animation: fadeInOut 4s infinite;
+}
+
+.floating-comment p {
+  margin: 0 0 4px 0;
+  font-weight: 500;
+}
+
+.floating-comment span {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(40px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(40px); }
+}
