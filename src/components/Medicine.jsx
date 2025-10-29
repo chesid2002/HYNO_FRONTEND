@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { FaInfoCircle, FaShoppingCart, FaHeart, FaStar } from 'react-icons/fa';
-import './Medicine.css';
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaInfoCircle, FaShoppingCart, FaHeart, FaStar } from "react-icons/fa";
+import "./Medicine.css";
 
 const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -10,20 +10,20 @@ const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
     return <div className="medicine-card">Medicine data not available</div>;
   }
 
+  // 🧠 Handle Add to Cart
   const handleAddToCart = () => {
-    onAddToCart(medicine);
+    if (onAddToCart) onAddToCart(medicine);
   };
 
+  // 🧠 Handle Wishlist
   const handleToggleWishlist = () => {
-    onToggleWishlist(medicine.id);
+    if (onToggleWishlist) onToggleWishlist(medicine.id);
   };
 
-  const renderStars = (rating) => {
+  // ⭐ Render rating stars dynamically
+  const renderStars = (rating = 0) => {
     return Array.from({ length: 5 }, (_, i) => (
-      <FaStar
-        key={i}
-        className={i < rating ? 'star filled' : 'star'}
-      />
+      <FaStar key={i} className={i < rating ? "star filled" : "star"} />
     ));
   };
 
@@ -35,8 +35,16 @@ const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
       transition={{ duration: 0.3 }}
       whileHover={{ y: -5 }}
     >
+      {/* Medicine Image */}
       <div className="medicine-image">
-        <img src={medicine.image || 'https://via.placeholder.com/300x300?text=No+Image'} alt={medicine.name} />
+        <img
+          src={
+            medicine.imageUrl ||
+            medicine.image ||
+            "https://via.placeholder.com/300x300?text=No+Image"
+          }
+          alt={medicine.name}
+        />
         {medicine.prescriptionRequired && (
           <div className="prescription-badge">Rx Required</div>
         )}
@@ -45,48 +53,72 @@ const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
         )}
       </div>
 
+      {/* Medicine Info */}
       <div className="medicine-info">
         <h3 className="medicine-name">{medicine.name}</h3>
-        <p className="medicine-brand">{medicine.brand}</p>
+        {medicine.brand && <p className="medicine-brand">{medicine.brand}</p>}
 
-        <div className="medicine-rating">
-          <div className="stars">
-            {renderStars(medicine.rating)}
+        {/* Rating */}
+        {medicine.rating && (
+          <div className="medicine-rating">
+            <div className="stars">{renderStars(medicine.rating)}</div>
+            {medicine.reviews && (
+              <span className="rating-text">({medicine.reviews} reviews)</span>
+            )}
           </div>
-          <span className="rating-text">({medicine.reviews} reviews)</span>
-        </div>
+        )}
 
+        {/* Price */}
         <div className="medicine-price">
-          <span className="current-price">₹{medicine.price.toFixed(2)}</span>
+          <span className="current-price">
+            ₹{medicine.price?.toFixed(2) || "0.00"}
+          </span>
           {medicine.originalPrice && (
-            <span className="original-price">₹{medicine.originalPrice.toFixed(2)}</span>
+            <span className="original-price">
+              ₹{medicine.originalPrice.toFixed(2)}
+            </span>
           )}
         </div>
 
-        <p className="medicine-description">
-          {isExpanded ? medicine.description : `${medicine.description.substring(0, 100)}...`}
-          <button
-            className="read-more-btn"
-            onClick={() => setIsExpanded(!isExpanded)}
-          >
-            {isExpanded ? 'Read Less' : 'Read More'}
-          </button>
-        </p>
+        {/* Description */}
+        {medicine.description && (
+          <p className="medicine-description">
+            {isExpanded
+              ? medicine.description
+              : `${medicine.description.substring(0, 100)}...`}
+            {medicine.description.length > 100 && (
+              <button
+                className="read-more-btn"
+                onClick={() => setIsExpanded(!isExpanded)}
+              >
+                {isExpanded ? "Read Less" : "Read More"}
+              </button>
+            )}
+          </p>
+        )}
 
+        {/* Extra Details */}
         <div className="medicine-details">
-          <div className="detail-item">
-            <strong>Dosage:</strong> {medicine.dosage}
-          </div>
-          <div className="detail-item">
-            <strong>Form:</strong> {medicine.form}
-          </div>
-          <div className="detail-item">
-            <strong>Quantity:</strong> {medicine.quantity}
-          </div>
+          {medicine.dosage && (
+            <div className="detail-item">
+              <strong>Dosage:</strong> {medicine.dosage}
+            </div>
+          )}
+          {medicine.form && (
+            <div className="detail-item">
+              <strong>Form:</strong> {medicine.form}
+            </div>
+          )}
+          {medicine.quantity && (
+            <div className="detail-item">
+              <strong>Quantity:</strong> {medicine.quantity}
+            </div>
+          )}
         </div>
 
+        {/* Stock */}
         <div className="medicine-stock">
-          {medicine.inStock ? (
+          {medicine.stock > 0 || medicine.inStock ? (
             <span className="in-stock">In Stock</span>
           ) : (
             <span className="out-of-stock">Out of Stock</span>
@@ -94,6 +126,7 @@ const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
         </div>
       </div>
 
+      {/* Actions */}
       <div className="medicine-actions">
         <motion.button
           className="btn btn-secondary wishlist-btn"
@@ -101,20 +134,25 @@ const Medicine = ({ medicine, onAddToCart, onToggleWishlist }) => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <FaHeart /> {medicine.isWishlisted ? 'Wishlisted' : 'Add to Wishlist'}
+          <FaHeart />{" "}
+          {medicine.isWishlisted ? "Wishlisted" : "Add to Wishlist"}
         </motion.button>
 
         <motion.button
-          className={`btn btn-primary add-to-cart-btn ${!medicine.inStock ? 'disabled' : ''}`}
+          className={`btn btn-primary add-to-cart-btn ${
+            medicine.stock === 0 ? "disabled" : ""
+          }`}
           onClick={handleAddToCart}
-          disabled={!medicine.inStock}
-          whileHover={{ scale: medicine.inStock ? 1.05 : 1 }}
-          whileTap={{ scale: medicine.inStock ? 0.95 : 1 }}
+          disabled={medicine.stock === 0}
+          whileHover={{ scale: medicine.stock > 0 ? 1.05 : 1 }}
+          whileTap={{ scale: medicine.stock > 0 ? 0.95 : 1 }}
         >
-          <FaShoppingCart /> {medicine.inStock ? 'Add to Cart' : 'Out of Stock'}
+          <FaShoppingCart />{" "}
+          {medicine.stock > 0 ? "Add to Cart" : "Out of Stock"}
         </motion.button>
       </div>
 
+      {/* Overlay */}
       <motion.div
         className="medicine-overlay"
         initial={{ opacity: 0 }}
